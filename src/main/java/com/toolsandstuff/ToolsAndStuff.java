@@ -2,7 +2,7 @@ package com.toolsandstuff;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -26,8 +26,8 @@ public class ToolsAndStuff implements ModInitializer {
         PIOLET = Registry.register(BuiltInRegistries.ITEM, key,
                 new Item(new Item.Properties().setId(key).durability(MAX_BLOCKS)));
 
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES)
-                .register(entries -> entries.accept(PIOLET));
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES)
+                .register(output -> output.accept(PIOLET));
 
         ServerTickEvents.END_SERVER_TICK.register(server ->
                 server.getPlayerList().getPlayers().forEach(ClimbDurability::tick));
